@@ -2,12 +2,13 @@ package org.springdoc.demo.services.organization;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
+import org.springdoc.demo.services.organization.model.Department;
 import org.springdoc.demo.services.organization.model.Organization;
+import org.springdoc.demo.services.organization.repository.DepartmentRepository;
 import org.springdoc.demo.services.organization.repository.OrganizationRepository;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
@@ -23,10 +24,20 @@ public class OrganizationApplication {
 	}
 
 	@Bean
-	OrganizationRepository repository() {
+	OrganizationRepository organizationRepository() {
 		OrganizationRepository repository = new OrganizationRepository();
 		repository.add(new Organization("Microsoft", "Redmond, Washington, USA"));
 		repository.add(new Organization("Oracle", "Redwood City, California, USA"));	
+		return repository;
+	}
+
+	@Bean
+	DepartmentRepository departmentRepository() {
+		DepartmentRepository repository = new DepartmentRepository();
+		repository.add(new Department(1L, "Development"));
+		repository.add(new Department(1L, "Operations"));
+		repository.add(new Department(2L, "Development"));
+		repository.add(new Department(2L, "Operations"));
 		return repository;
 	}
 }

@@ -1,50 +1,19 @@
 package org.springdoc.demo.services.organization.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class Department {
 
+	public Department(Long organizationId, String name) {
+		this.organizationId = organizationId;
+		this.name = name;
+	}
+
 	private Long id;
+	private Long organizationId;
 	private String name;
-	private List<Employee> employees = new ArrayList<>();
-
-	public Department() {
-		
-	}
-
-	public Department(String name) {
-		super();
-		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<Employee> getEmployees() {
-		return employees;
-	}
-
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
-	}
-
-	@Override
-	public String toString() {
-		return "Department [id=" + id + ", name=" + name + "]";
-	}
 
 }

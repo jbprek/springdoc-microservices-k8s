@@ -1,11 +1,12 @@
-package org.springdoc.demo.services.department.repository;
+package org.springdoc.demo.services.organization.repository;
+
+
+import org.springdoc.demo.services.organization.model.Department;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.springdoc.demo.services.department.model.Department;
 
 public class DepartmentRepository {
 
@@ -28,6 +29,7 @@ public class DepartmentRepository {
 	public List<Department> findAll() {
 		return departments;
 	}
+
 	
 	public List<Department> findByOrganization(Long organizationId) {
 		return departments.stream().filter(a -> a.getOrganizationId().equals(organizationId)).collect(Collectors.toList());

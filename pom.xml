@@ -29,9 +29,8 @@
     </properties>
 
     <modules>
-        <module>employee-service</module>
-        <module>department-service</module>
         <module>organization-service</module>
+        <module>employee-service</module>
     </modules>
 
     <dependencyManagement>
@@ -86,14 +85,17 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.22.2</version>
                 <configuration>
-                    <classesDirectory>${project.build.outputDirectory}
-                    </classesDirectory>
+                    <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-
 
 
 </project>

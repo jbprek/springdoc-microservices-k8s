@@ -1,75 +1,73 @@
 package org.springdoc.demo.services.organization.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springdoc.demo.services.organization.model.Department;
+import org.springdoc.demo.services.organization.model.Organization;
+import org.springdoc.demo.services.organization.model.OrganizationView;
+import org.springdoc.demo.services.organization.repository.DepartmentRepository;
+import org.springdoc.demo.services.organization.repository.OrganizationRepository;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springdoc.demo.services.organization.client.DepartmentClient;
-import org.springdoc.demo.services.organization.client.EmployeeClient;
-import org.springdoc.demo.services.organization.model.Organization;
-import org.springdoc.demo.services.organization.repository.OrganizationRepository;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 @RestController
+@Slf4j
+@AllArgsConstructor
 public class OrganizationController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationController.class);
 	
-	private OrganizationRepository repository;
-	private DepartmentClient departmentClient;
-	private EmployeeClient employeeClient;
+	private OrganizationRepository organizationRepository;
+	private DepartmentRepository departmentRepository;
 
-	public OrganizationController(OrganizationRepository repository, DepartmentClient departmentClient, EmployeeClient employeeClient) {
-		this.repository = repository;
-		this.departmentClient = departmentClient;
-		this.employeeClient = employeeClient;
-	}
 
-	@PostMapping
+	@PostMapping("/organizations")
 	public Organization add(@RequestBody Organization organization) {
-		LOGGER.info("Organization add: {}", organization);
-		return repository.add(organization);
+		log.info("Organization add: {}", organization);
+		return organizationRepository.add(organization);
 	}
 	
-	@GetMapping
+	@GetMapping("/organizations")
 	public List<Organization> findAll() {
-		LOGGER.info("Organization find");
-		return repository.findAll();
+		log.info("Organization find");
+		return organizationRepository.findAll();
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/organizations/{id}")
 	public Organization findById(@PathVariable("id") Long id) {
-		LOGGER.info("Organization find: id={}", id);
-		return repository.findById(id);
+		log.info("Organization find: id={}", id);
+		return organizationRepository.findById(id);
 	}
 
-	@GetMapping("/{id}/with-departments")
-	public Organization findByIdWithDepartments(@PathVariable("id") Long id) {
-		LOGGER.info("Organization find: id={}", id);
-		Organization organization = repository.findById(id);
-		organization.setDepartments(departmentClient.findByOrganization(organization.getId()));
-		return organization;
+	@GetMapping("/organizations/{id}/departments")
+	public OrganizationView findByIdWithDepartments(@PathVariable("id") Long id) {
+		log.info("Organization find: id={}", id);
+		var organization = organizationRepository.findById(id);
+		var departments = departmentRepository.findByOrganization(id);
+		return OrganizationView.of(organization.getId(),
+				organization.getName(),
+				organization.getAddress(),
+				departments);
+	}
+
+	@PostMapping("/departments")
+	public Department addDepartment(@RequestBody Department department) {
+		log.info("Department add: {}", department);
+		return departmentRepository.add(department);
+	}
+
+	@GetMapping("/departments")
+	public List<Department> findAllDepartments() {
+		log.info("Department find");
+		return departmentRepository.findAll();
+	}
+
+	@GetMapping("/departments/{id}")
+	public Department findDepartmentById(@PathVariable("id") Long id) {
+		log.info("Department find: id={}", id);
+		return departmentRepository.findById(id);
 	}
 	
-	@GetMapping("/{id}/with-departments-and-employees")
-	public Organization findByIdWithDepartmentsAndEmployees(@PathVariable("id") Long id) {
-		LOGGER.info("Organization find: id={}", id);
-		Organization organization = repository.findById(id);
-		organization.setDepartments(departmentClient.findByOrganizationWithEmployees(organization.getId()));
-		return organization;
-	}
-	
-	@GetMapping("/{id}/with-employees")
-	public Organization findByIdWithEmployees(@PathVariable("id") Long id) {
-		LOGGER.info("Organization find: id={}", id);
-		Organization organization = repository.findById(id);
-		organization.setEmployees(employeeClient.findByOrganization(organization.getId()));
-		return organization;
-	}
+
 	
 }
