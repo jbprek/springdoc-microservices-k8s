@@ -33,8 +33,5 @@ public class EmployeeRepository {
 		return employees.stream().filter(a -> a.getDepartmentId().equals(departmentId)).collect(Collectors.toList());
 	}
 	
-	public List<Employee> findByOrganization(Long organizationId) {
-		return employees.stream().filter(a -> a.getOrganizationId().equals(organizationId)).collect(Collectors.toList());
-	}
-	
+
 }

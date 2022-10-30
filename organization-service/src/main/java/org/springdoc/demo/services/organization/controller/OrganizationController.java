@@ -2,11 +2,15 @@ package org.springdoc.demo.services.organization.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.demo.services.organization.client.EmployeeClient;
 import org.springdoc.demo.services.organization.model.Department;
+import org.springdoc.demo.services.organization.model.DepartmentView;
 import org.springdoc.demo.services.organization.model.Organization;
 import org.springdoc.demo.services.organization.model.OrganizationView;
 import org.springdoc.demo.services.organization.repository.DepartmentRepository;
 import org.springdoc.demo.services.organization.repository.OrganizationRepository;
+import org.springdoc.demo.services.organization.service.DepartmentMapper;
+import org.springdoc.demo.services.organization.service.EmployeeMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +23,12 @@ public class OrganizationController {
 	
 	private OrganizationRepository organizationRepository;
 	private DepartmentRepository departmentRepository;
+
+	private DepartmentMapper departmentMapper;
+
+	private EmployeeClient employeeClient;
+
+	private EmployeeMapper employeeMapper;
 
 
 	@PostMapping("/organizations")
@@ -39,11 +49,11 @@ public class OrganizationController {
 		return organizationRepository.findById(id);
 	}
 
-	@GetMapping("/organizations/{id}/departments")
+	@GetMapping("/organizations/{id}/view")
 	public OrganizationView findByIdWithDepartments(@PathVariable("id") Long id) {
 		log.info("Organization find: id={}", id);
 		var organization = organizationRepository.findById(id);
-		var departments = departmentRepository.findByOrganization(id);
+		var departments = departmentMapper.entityListToViewList(departmentRepository.findByOrganization(id));
 		return OrganizationView.of(organization.getId(),
 				organization.getName(),
 				organization.getAddress(),
@@ -67,7 +77,16 @@ public class OrganizationController {
 		log.info("Department find: id={}", id);
 		return departmentRepository.findById(id);
 	}
-	
 
-	
+	@GetMapping("/departments/{id}/view")
+	public DepartmentView findDepartmentViewById(@PathVariable("id") Long id) {
+		log.info("DepartmentView find: id={}", id);
+		var empEntities = employeeMapper
+				.entityListToViewList(employeeClient.findByDepartment(id));
+
+		var dep = departmentMapper.entityToView(departmentRepository.findById(id));
+		dep.setEmployees(empEntities);
+		return dep;
+	}
+
 }

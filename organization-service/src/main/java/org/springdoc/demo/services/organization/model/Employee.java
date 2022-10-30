@@ -1,4 +1,4 @@
-package org.springdoc.demo.services.employee.model;
+package org.springdoc.demo.services.organization.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

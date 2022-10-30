@@ -47,10 +47,5 @@ public class EmployeeController {
 		return repository.findByDepartment(departmentId);
 	}
 	
-	@GetMapping("/organization/{organizationId}")
-	public List<Employee> findByOrganization(@PathVariable("organizationId") Long organizationId) {
-		LOGGER.info("Employee find: organizationId={}", organizationId);
-		return repository.findByOrganization(organizationId);
-	}
-	
+
 }

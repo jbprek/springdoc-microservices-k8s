@@ -13,7 +13,7 @@ public class OrganizationView {
 	private String name;
 	private String address;
 
-	private List<Department> departments;
+	private List<DepartmentView> departments;
 
 
 }
