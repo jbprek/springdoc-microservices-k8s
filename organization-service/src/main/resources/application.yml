@@ -1,0 +1,22 @@
+server:
+  port: 8091
+
+spring:
+  application:
+    name: organization-service
+
+springdoc:
+  version: '@springdoc.version@'
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+
+app:
+  feign:
+    department-service:
+      name: department-service
+      url: http://localhost:8090
+    employee-service:
+      name: employee-service
+      url: http://localhost:8092

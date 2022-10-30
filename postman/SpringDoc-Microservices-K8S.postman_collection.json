@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "b8472f6d-4d0c-4a9c-b85c-2d27f7e2e4f0",
+		"name": "SpringDoc-Microservices-K8S",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20799138"
+	},
+	"item": [
+		{
+			"name": "Organization",
+			"item": [
+				{
+					"name": "Org Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Defunc\",\r\n    \"address\": \"Unkown\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8060/organization/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8060",
+							"path": [
+								"organization",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Org All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8060/organization/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8060",
+							"path": [
+								"organization",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Org By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{org-url}}/1",
+							"host": [
+								"{{org-url}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Org By ID With Dpt",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{org-url}}/1/with-departments",
+							"host": [
+								"{{org-url}}"
+							],
+							"path": [
+								"1",
+								"with-departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Org By ID With Dpt,Emp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{org-url}}/1/with-departments-and-employees",
+							"host": [
+								"{{org-url}}"
+							],
+							"path": [
+								"1",
+								"with-departments-and-employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Org By ID With Emp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{org-url}}/1/with-employees",
+							"host": [
+								"{{org-url}}"
+							],
+							"path": [
+								"1",
+								"with-employees"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Department",
+			"item": [
+				{
+					"name": "Dpt All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dpt By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dept-url}}/1",
+							"host": [
+								"{{dept-url}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dpt By OrgID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dept-url}}/organization/1",
+							"host": [
+								"{{dept-url}}"
+							],
+							"path": [
+								"organization",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dpt By OrgID with Emps",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dept-url}}/organization/1/with-employees",
+							"host": [
+								"{{dept-url}}"
+							],
+							"path": [
+								"organization",
+								"1",
+								"with-employees"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "Emp All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{emp-url}}/",
+							"host": [
+								"{{emp-url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Emp By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{emp-url}}/1",
+							"host": [
+								"{{emp-url}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Emp  By DptID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dept-url}}/department/1",
+							"host": [
+								"{{dept-url}}"
+							],
+							"path": [
+								"department",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Emp By OrgID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{emp-url}}/organization/1/",
+							"host": [
+								"{{emp-url}}"
+							],
+							"path": [
+								"organization",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
