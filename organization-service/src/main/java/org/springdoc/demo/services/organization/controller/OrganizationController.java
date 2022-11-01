@@ -18,16 +18,12 @@ import java.util.List;
 @RestController
 @Slf4j
 @AllArgsConstructor
-public class OrganizationController {
 
-	
+public class OrganizationController {
 	private OrganizationRepository organizationRepository;
 	private DepartmentRepository departmentRepository;
-
 	private DepartmentMapper departmentMapper;
-
 	private EmployeeClient employeeClient;
-
 	private EmployeeMapper employeeMapper;
 
 
@@ -47,6 +43,12 @@ public class OrganizationController {
 	public Organization findById(@PathVariable("id") Long id) {
 		log.info("Organization find: id={}", id);
 		return organizationRepository.findById(id);
+	}
+
+	@GetMapping("/organizations/{id}/departments")
+	public List<Department> findDepartmentsForId(@PathVariable("id") Long id) {
+		log.info("Organization find: id={}", id);
+		return departmentRepository.findByOrganization(id);
 	}
 
 	@GetMapping("/organizations/{id}/view")
