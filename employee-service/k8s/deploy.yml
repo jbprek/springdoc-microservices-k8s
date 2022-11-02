@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: employee-service-deploy
+  name: employee-service-deploy
+  namespace: oe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-service-deploy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: employee-service-deploy
+    spec:
+      containers:
+        - image: localhost:5000/employee-service:1.0.0
+          name: employee-service
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config-volume
+              mountPath: /workspace/config
+          resources: {}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: employee-service-cm
