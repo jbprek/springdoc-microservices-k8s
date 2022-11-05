@@ -1,5 +1,6 @@
 server:
   port: 8080
+  shutdown: graceful
 
 spring:
   application:
@@ -11,4 +12,15 @@ springdoc:
 logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
-
+  
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  
+health:
+  livenessState:
+    enabled: true
+  readinessState:
+    enabled: true

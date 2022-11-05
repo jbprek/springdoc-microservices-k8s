@@ -11,9 +11,6 @@ spec:
   - port: 80
     protocol: TCP
     targetPort: 8080
-    nodePort: 30000
   selector:
     app: employee-service-deploy
-  type: NodePort
-status:
-  loadBalancer: {}
+  type: ClusterIP
