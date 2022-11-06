@@ -1,16 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
   labels:
-    app: employee-service-deploy
-  name: employee-service
-  namespace: oe
+    app: organization-service-deploy
+  name: organization-service
 spec:
   ports:
   - port: 80
     protocol: TCP
     targetPort: 8080
   selector:
-    app: employee-service-deploy
+    app: organization-service-deploy
   type: ClusterIP

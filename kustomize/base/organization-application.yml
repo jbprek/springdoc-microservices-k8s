@@ -1,9 +1,22 @@
 server:
   port: 8080
+  shutdown: graceful
 
 spring:
   application:
     name: organization-service
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+health:
+  livenessState:
+    enabled: true
+  readinessState:
+    enabled: true
 
 springdoc:
   version: '@springdoc.version@'
@@ -16,4 +29,4 @@ app:
   feign:
     employee-service:
       name: employee-service
-      url: http://employee-service:8080
+      url: http://employee-service:80

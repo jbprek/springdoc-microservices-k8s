@@ -4,7 +4,6 @@ metadata:
   labels:
     app: employee-service-deploy
   name: employee-service-deploy
-  namespace: oe
 spec:
   replicas: 1
   selector:

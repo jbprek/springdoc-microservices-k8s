@@ -3,12 +3,17 @@ kind: Kustomization
 namespace: dev
 resources:
   - namespace.yml
-  - service.yml
-  - deployment.yml
+  - employee-deployment.yml
+  - organization-deployment.yml
+  - employee-service.yml
+  - organization-service.yml
 
 configMapGenerator:
   - name: employee-service-cm
     files:
-      - application.yml
+      - application.yml=employee-application.yml
+  - name: organization-service-cm
+    files:
+      - application.yml=organization-application.yml
 generatorOptions:
   disableNameSuffixHash: true

@@ -2,23 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: employee-service-deploy
-  name: employee-service-deploy
-  namespace: oe
+    app: organization-service-deploy
+  name: organization-service-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: employee-service-deploy
+      app: organization-service-deploy
   strategy: {}
   template:
     metadata:
       labels:
-        app: employee-service-deploy
+        app: organization-service-deploy
     spec:
       containers:
-        - image: localhost:5000/employee-service:1.0.0
-          name: employee-service
+        - image: localhost:5000/organization-service:1.0.0
+          name: organization-service
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -40,4 +39,4 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: employee-service-cm
+            name: organization-service-cm
